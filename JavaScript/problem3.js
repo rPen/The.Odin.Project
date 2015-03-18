@@ -5,3 +5,15 @@
 
 	 What is the largest prime factor of the number 600851475143?
 */
+
+
+function largestPrimeFactor(n) {
+	for (i = 2; i < Math.sqrt(n); i++) {
+		if (n % i == 0)
+			return largestPrimeFactor(n/i);
+	}
+  return n;
+}
+
+largestPrimeFactor(600851475143);
+// → 6857
