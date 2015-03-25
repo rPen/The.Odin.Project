@@ -39,22 +39,12 @@ function resetGrid() {
 		}
 }
 
-function createGrid(n) {
-	var newDiv = "<div class='box'></div>";
-	var newRow = "<div class='row'></div>";
-	var gridSize = n;
+function createGrid(size) {
+	var newDiv = "<div class='box'></div>", boxCount = size * size +1;
 	// boxsize needs to account for 1px border -> 2n/n = 2
-	var boxSize = (gridWidth / n) - 2;
-	$(".box, .row").remove();
-	while (n > 0) {
-		for (var i = 0; i <= gridSize; i++) {
-			if (i < gridSize) 
-				wrapper.append(newDiv);
-			else
-				wrapper.append(newRow);	
-		}	
-		n--;		
- 	}
+	var boxSize = (gridWidth / size) - 2;
+	$(".box").remove();
+	while (boxCount -= 1) wrapper.append(newDiv);
 	// Cache selectors and set CSS properties
   square = $(".box");
 	square.css({
