@@ -3,30 +3,30 @@ $(document).ready(function() {
 	gridWidth = wrapper.width();
 	popDropDown("grid",2,32);
 	createGrid(12);
-	square.on("mouseenter", normalColor);
+	wrapper.on("mouseenter", ".box", normalColor);
 });
 
 var normal = $("#normal");
 normal.on("click", function() {
-	square.off();
+	wrapper.off();
 	square.css("background-color", "");
-	square.on("mouseenter", normalColor);
+	wrapper.on("mouseenter", ".box", normalColor);
 });
 
 var random = $("#random");
 random.on("click", function() {
-	square.off();
+	wrapper.off();
 	square.css("background-color", "");
-	square.on("mouseenter", function() {
+	wrapper.on("mouseenter", ".box", function() {
 		$(this).css("background-color", randomColor());
 	}); 
 }); 
 
 var tracer = $("#tracer");
 tracer.on("click", function() {
-	square.off();
+	wrapper.off();
 	square.css("background-color", "");
-	square.on("mouseenter", boxTracer);
+	wrapper.on("mouseenter", ".box", boxTracer);
 });
 
 function popDropDown(id, min, max) {
