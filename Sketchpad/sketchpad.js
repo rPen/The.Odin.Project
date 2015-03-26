@@ -28,9 +28,9 @@ var sketch = (function() {
   }
 
   function boxShader() {
-    var $opacity = $(this).css("opacity");
-    if ($opacity > 0)
-      $(this).css("opacity", $opacity - 0.2);
+    var $this = $(this), $opacity = $this.css("opacity");
+    if ($opacity > 0.2)
+      $this.css("opacity", $opacity - 0.2);
   }
 
   return {
@@ -98,5 +98,5 @@ $("#tracer").on("click", function() {
 
 $("#shader").on("click", function() {
   sketch.resetSquare();
-  sketch.mouseHandler.on("mouseenter mouseleave", ".box", sketch.shader);
+  sketch.mouseHandler.on("mouseenter", ".box", sketch.shader);
 });
