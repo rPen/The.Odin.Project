@@ -24,9 +24,7 @@ var sketch = (function() {
   function boxTracer() {
     var $this = $(this);
     $this.fadeTo("slow", 0);
-    $this.mouseleave(function() {
-      $this.fadeTo("fast", 1);
-    });  
+    $this.fadeTo("fast", 1);
   }
 
   function boxShader() {
@@ -100,5 +98,5 @@ $("#tracer").on("click", function() {
 
 $("#shader").on("click", function() {
   sketch.resetSquare();
-  sketch.mouseHandler.on("mouseenter", ".box", sketch.shader);
+  sketch.mouseHandler.on("mouseenter mouseleave", ".box", sketch.shader);
 });
