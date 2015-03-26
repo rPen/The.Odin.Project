@@ -1,10 +1,13 @@
 "use strict";
-var grid = (function() { 
-  var wrapper, width, square;
+$(document).ready(function() {
+  sketch.popDropDown("grid", 2, 32);
+  sketch.createGrid(12);
+  sketch.mouseHandler.on("mouseenter", ".box", sketch.normal);
+});
 
-  wrapper = $(".wrapper");
-  width = $(".wrapper").width();
-  square = null;
+var sketch = (function() { 
+  var wrapper = $(".wrapper"), width = wrapper.width(), 
+      square = null;
  
   function normalColor() {
     $(this).css("background-color", "#d3d2d8");
@@ -26,12 +29,19 @@ var grid = (function() {
     });  
   }
 
+  function boxShader() {
+    var $opacity = $(this).css("opacity");
+    if ($opacity > 0)
+      $(this).css("opacity", $opacity - 0.2);
+  }
+
   return {
 
     mouseHandler: wrapper,
     normal: normalColor,
     random: randomColor,
-    boxTrace: boxTracer,
+    tracer: boxTracer,
+    shader: boxShader,
 
     popDropDown: function(id, min, max) {
     	var i, select, option;
@@ -48,7 +58,7 @@ var grid = (function() {
 
     createGrid: function(size) {
       // boxsize needs to account for 1px border -> 2n/n = 2
-      var boxSize = (width / size) -2,
+      var boxSize = (width / size) - 2,
           boxCount = size * size + 1,
           newDiv = "<div class='box'></div>";
       $(".box").remove();
@@ -63,31 +73,32 @@ var grid = (function() {
 
     resetSquare: function() {
       wrapper.off();
-      square.css("background-color", "");
+      square.css({
+        "background-color": "",
+        opacity: 1
+      });
     }
   }; 
 })();
 
-
-$(document).ready(function() {
-  grid.popDropDown("grid", 2, 32);
-  grid.createGrid(12);
-  grid.mouseHandler.on("mouseenter", ".box", grid.normal);
-});
-
 $("#normal").on("click", function() {
-  grid.resetSquare();
-  grid.mouseHandler.on("mouseenter", ".box", grid.normal);
+  sketch.resetSquare();
+  sketch.mouseHandler.on("mouseenter", ".box", sketch.normal);
 });
 
 $("#random").on("click", function() {
-  grid.resetSquare();
-  grid.mouseHandler.on("mouseenter", ".box", function() {
-    $(this).css("background-color", grid.random);
+  sketch.resetSquare();
+  sketch.mouseHandler.on("mouseenter", ".box", function() {
+    $(this).css("background-color", sketch.random);
   }); 
 }); 
 
 $("#tracer").on("click", function() {
-  grid.resetSquare();
-  grid.mouseHandler.on("mouseenter", ".box", grid.boxTrace);
+  sketch.resetSquare();
+  sketch.mouseHandler.on("mouseenter", ".box", sketch.tracer);
+});
+
+$("#shader").on("click", function() {
+  sketch.resetSquare();
+  sketch.mouseHandler.on("mouseenter", ".box", sketch.shader);
 });

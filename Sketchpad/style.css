@@ -31,7 +31,9 @@ header select {
 button {
 	margin: 0 2px 15px;
 	border: 1px solid #4285f4;
-	border-radius: 3px;
+	-webkit-border-radius: 4;
+  	-moz-border-radius: 4;
+  	border-radius: 4px;
 	background: #4487fa;
 	padding: 5px 10px;
 	color: #fff;
