@@ -12,25 +12,42 @@
    exceed four million, find the sum of the even-valued terms. 
 */
 
+var sum = 0,
+    num = 0,
+    fibVal = 0;
 
-// Recursive function to get Fibonacci digit
-function fib(x) {
-	if (x == 0) 
-  	return 0;
-  else if (x == 1)
-	  return 1;
-	else
-	  return fib(x-1) + fib(x-2);
-}	
+var fibo = function(digit) {
+  'use strict';
+  if (!fibo.cache[digit]) {
+    var result = {};
+    result = (digit === 0) ? 0 :
+             (digit === 1) ? 1 :
+             fibo(digit - 1) + fibo(digit - 2);
+    fibo.cache[digit] = result;
+  }
+  return fibo.cache[digit];
+};
 
-var sum = 0;
+// Add 'cache' object as a property of the function
+fibo.cache = {};
 
-for (var num = 1; ; num++) {
-    var fibNum = fib(num);
-	if (fibNum > 4000000)
-		break;    
-	if (fibNum % 2 == 0)
-		sum += fibNum;
-}	
+// Loop to sum all even Fibonacci digit values 
+// from 1 to 4 million
+for (num = 1; ; num += 1) {
+  fibVal = fibo(num);
+  if (fibVal >= 4000000) {
+    break;
+  }
 
-console.log(sum); // 4613732
+  if (fibVal % 2 === 0) {
+    sum += fibVal;
+  }
+}
+
+console.log(sum);
+
+
+
+
+
+
