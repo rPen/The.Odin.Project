@@ -12,10 +12,6 @@
    exceed four million, find the sum of the even-valued terms. 
 */
 
-var sum = 0,
-    num = 0,
-    fibVal = 0;
-
 var fibo = function(digit) {
   'use strict';
   if (!fibo.cache[digit]) {
@@ -32,22 +28,20 @@ var fibo = function(digit) {
 fibo.cache = {};
 
 // Loop to sum all even Fibonacci digit values 
-// from 1 to 4 million
-for (num = 1; ; num += 1) {
-  fibVal = fibo(num);
-  if (fibVal >= 4000000) {
-    break;
-  }
-
-  if (fibVal % 2 === 0) {
+// from 2 to 'max'
+var evenFibSum = function(max) {
+  'use strict';
+  var sum = 0,
+      fibVal = 0,
+      i;
+  // Every 3rd digit in the Fibonacci sequence 
+  // is a multiple of 2
+  for (i = 3; ; i += 3) {
+    fibVal = fibo(i);
+    if (fibVal >= max) break;
     sum += fibVal;
   }
-}
+  return sum;
+};
 
-console.log(sum);
-
-
-
-
-
-
+evenFibSum(4000000);
