@@ -1,15 +1,8 @@
+var sketch = (function() {
 'use strict';
-var sketch = (function () {
-
   var $wrapper = $('.wrapper'),
     width = $wrapper.width(),
     $square = null;
-
-  function init() {
-    populateDropDown('grid', 2, 32);
-    createGrid(12);
-    $wrapper.on('mouseenter', '.box', normalColor);
-  }
 
   function populateDropDown(id, min, max) {
     var i, select, option;
@@ -81,8 +74,7 @@ var sketch = (function () {
 
   return {
 
-    startup: init,
-    gridDropDown: populateDropDown,
+    gridSizeDropDown: populateDropDown,
     build: createGrid,
     mouseHandler: $wrapper,
     normal: normalColor,
@@ -91,30 +83,38 @@ var sketch = (function () {
     shader: boxShader,
     clear: resetSquare
   };
-}());
+})();
 
-$('#normal').on('click', function () {
-  sketch.clear();
-  sketch.mouseHandler.on('mouseenter', '.box', sketch.normal);
-});
-
-$('#random').on('click', function () {
-  sketch.clear();
-  sketch.mouseHandler.on('mouseenter', '.box', function () {
-    $(this).css('background-color', sketch.random);
-  });
-});
-
-$('#tracer').on('click', function () {
-  sketch.clear();
-  sketch.mouseHandler.on('mouseenter', '.box', sketch.tracer);
-});
-
-$('#shader').on('click', function () {
-  sketch.clear();
-  sketch.mouseHandler.on('mouseenter', '.box', sketch.shader);
-});
 
 $(document).ready(function () {
-  sketch.startup();
+  'use strict';
+
+  // startup initial grid
+  (function() {
+    sketch.gridSizeDropDown('grid', 2, 32);
+    sketch.build(12);
+    sketch.mouseHandler.on('mouseenter', '.box', sketch.normal);  
+  })();
+
+  $('#normal').on('click', function() {
+    sketch.clear();
+    sketch.mouseHandler.on('mouseenter', '.box', sketch.normal);
+  });
+
+  $('#random').on('click', function() {
+    sketch.clear();
+    sketch.mouseHandler.on('mouseenter', '.box', function () {
+      $(this).css('background-color', sketch.random);
+    });
+  });
+
+  $('#tracer').on('click', function() {
+    sketch.clear();
+    sketch.mouseHandler.on('mouseenter', '.box', sketch.tracer);
+  });
+
+  $('#shader').on('click', function() {
+    sketch.clear();
+    sketch.mouseHandler.on('mouseenter', '.box', sketch.shader);
+  });
 });
